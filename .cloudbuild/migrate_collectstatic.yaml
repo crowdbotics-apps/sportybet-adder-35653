@@ -1,0 +1,44 @@
+steps:
+  - id: "collect static"
+    name: "gcr.io/google-appengine/exec-wrapper"
+    args:
+      [
+        "-i",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}",
+        "-s",
+        "${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME}",
+        "-e",
+        "SETTINGS_NAME=${_SECRET_SETTINGS_NAME}",
+        "--",
+        "python3",
+        "manage.py",
+        "collectstatic",
+        "--verbosity",
+        "2",
+        "--no-input",
+      ]
+  
+  - id: "apply migrations"
+    name: "gcr.io/google-appengine/exec-wrapper"
+    args:
+      [
+        "-i",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}",
+        "-s",
+        "${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME}",
+        "-e",
+        "SETTINGS_NAME=${_SECRET_SETTINGS_NAME}",
+        "--",
+        "python3",
+        "manage.py",
+        "migrate",
+      ]
+
+images:
+  - "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}"
+
+substitutions:
+  _INSTANCE_NAME: django-instance
+  _REGION: us-east4
+  _SERVICE_NAME: service-name
+  _SECRET_SETTINGS_NAME: django_settings
