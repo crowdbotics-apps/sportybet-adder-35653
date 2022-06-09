@@ -28,6 +28,10 @@ class Command(BaseCommand):
                     )
                 )
             except EmailAddress.DoesNotExist:
-                self.stdout.write(self.style.ERROR(f"User {email} does not exist or not active or verified"))
+                self.stdout.write(
+                    self.style.ERROR(
+                        f"User {email} does not exist or not active or verified"
+                    )
+                )
         else:
             self.stdout.write(self.style.ERROR(f"No email address provided."))

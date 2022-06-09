@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+{% load custom_tags %}
+{% block content %}
+    
+    <h3 class="text-center mt-3">Model {{ view|model_name }}, Detail View</h3>
+    {% with data=object|jsonify %}
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-6">
+                <p class="font-weight-bold">Field Name: Value</p>
+                {% for field, value in data.items %}
+                    <p>{{ field }}: {{ value }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endwith %}
+
+{% endblock %}

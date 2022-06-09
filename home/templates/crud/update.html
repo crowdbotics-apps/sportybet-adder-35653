@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+{% load bootstrap4 custom_tags %}
+{% block content %}
+    
+    <h3 class="text-center mt-3">Model {{ view|model_name }}, Update View</h3>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-success" value="Submit">
+    </form>
+
+{% endblock %}

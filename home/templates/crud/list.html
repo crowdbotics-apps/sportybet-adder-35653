@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+{% load custom_tags %}
+{% block content %}
+    
+    <h3 class="text-center mt-3">Model {{ view|model_name }}, List View</h3>
+    {% if object_list %}
+        {% with object_values=object_list.values %}
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        {% for field_name in object_values.0.keys %}
+                            <th scope="col">{{ field_name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object_value in object_values %}
+                        <tr>
+                            <td scope="row">{{ forloop.counter }}</td>
+                            {% for value in object_value.values %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endwith %}
+    {% else %}
+        <p class="h2 text-center">No Records Yet</p>
+    {% endif %}
+
+{% endblock %}
